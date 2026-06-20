@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cocteles saludables</title>
+    <style>
+        /* --- VARIABLES DE COLOR Y CONFIGURACIÓN --- */
+        :root {
+            --verde-principal: #2e7d32;
+            --verde-claro: #4caf50;
+            --verde-fondo: #f1f8e9;
+            --oscuro: #263238;
+            --blanco: #ffffff;
+            --gris-suave: #eceff1;
+            --oro: #ffb300;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--verde-fondo);
+            color: var(--oscuro);
+            line-height: 1.6;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(135deg, var(--verde-principal), var(--verde-claro));
+            color: var(--blanco);
+            text-align: center;
+            padding: 2.5rem 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .seccion-titulo {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--verde-principal);
+            position: relative;
+        }
+
+        .seccion-titulo::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--verde-claro);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- MENÚ DE PRODUCTOS (GRID RESPONSIVO) --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* CARD DE PRODUCTO e INTERACTIVIDAD CSS */
+        .producto-card {
+            background-color: var(--blanco);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.2);
+        }
+
+        .producto-img {
+            width: 100%;
+            height: 200px;
+            background-color: var(--gris-suave);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #979c78;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Simulación de imágenes atractivas con CSS */
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--blanco);
+            text-align: center;
+            padding: 1rem;
+        }
+        .p1 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://lachechicocina.com/wp-content/uploads/2025/01/batido-de-naranja-y-zanahoria-una-deliciosa-y-nutritiva-bebida-para-mejorar-tu-salud-1024x574.jpg') center/cover; }
+        .p2 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://www.iletaitunfruit.fr/wp-content/uploads/2024/05/Melange-secret-pour-un-Cocktail-sans-alcool-a-la-noix-de-coco-qui-va-revolutionner-vos-soirees--1024x578.png') center/cover; }
+        .p3 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://img.freepik.com/fotos-premium/coctel-pina-colada-refrescante-coctel-alcoholico-verano-pina-colada-leche-coco-jugo-pina-bebida-verano-preparacion-cocteles_262193-1267.jpg?w=2000') center/cover; }
+        .p4 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1607532941433-304659e8198a?w=500') center/cover; }
+        .p5 { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=500') center/cover; }
+
+        .producto-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .producto-titulo {
+            font-size: 1.3rem;
+            color: var(--verde-principal);
+            margin-bottom: 0.5rem;
+        }
+
+        .producto-desc {
+            font-size: 0.95rem;
+            color: #546e7a;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .producto-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .producto-precio {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--oscuro);
+        }
+
+        .btn-comprar {
+            background-color: var(--verde-claro);
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-comprar:hover {
+            background-color: var(--verde-principal);
+        }
+
+        .btn-comprar:active {
+            transform: scale(0.95);
+        }
+
+        /* --- SECCIÓN DE PAGO (BANCO PICHINCHA) --- */
+        .seccion-pago {
+            background-color: var(--blanco);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            border-top: 5px solid var(--oro); /* Color característico secundario */
+            transition: all 0.4s ease;
+        }
+
+        /* Efecto interactivo al hacer clic en "Comprar" */
+        .seccion-pago:target {
+            animation: iluminar 1.5s ease-in-out;
+            border-top-color: var(--verde-principal);
+        }
+
+        @keyframes iluminar {
+            0% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+            50% { transform: scale(1.03); box-shadow: 0 15px 40px rgba(46, 125, 50, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        }
+
+        .pago-contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        /* QR interactivo (se agranda al pasar el cursor) */
+        .qr-box {
+            background-color: var(--gris-suave);
+            padding: 1rem;
+            border-radius: 15px;
+            border: 2px dashed var(--verde-claro);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .qr-box:hover {
+            transform: scale(1.05);
+        }
+
+        .qr-imagen {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            /* Usamos un QR simulado de internet, puedes cambiar la URL por tu QR real */
+            background-image: url('https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BancoPichincha_PinosSaludable');
+            background-size: cover;
+        }
+
+        .datos-banco {
+            width: 100%;
+            background-color: var(--verde-fondo);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--verde-principal);
+            text-align: left;
+        }
+
+        .banco-badge {
+            background-color: #fff176; /* Amarillo Pichincha */
+            color: #37474f;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+
+        .datos-banco p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .datos-banco strong {
+            color: var(--verde-principal);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--oscuro);
+            color: var(--blanco);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- ADAPTABILIDAD MÓVIL (RESPONSIVE DESIGN) --- */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .seccion-pago {
+                padding: 1.5rem;
+            }
+
+            .pago-contenedor {
+                gap: 1.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                padding: 1.5rem 1rem;
+            }
+            header h1 {
+                font-size: 1.7rem;
+            }
+            .producto-card {
+                max-width: 320px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>COCTELES BIEN PROZK</h1>
+        <p>cocteles bien nutritivos así bien pros</p>
+    </header>
+
+    <main>
+        <h2 class="seccion-titulo">Nuestro Menu del dia :3</h2>
+        
+        <div class="menu-grid">
+            
+            <div class="producto-card">
+                <div class="producto-img p1">
+                    <div class="img-placeholder">SOl DE LICEO</div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="producto-titulo">SOL DE LICEO</h3>
+                    <p class="producto-desc">Delicioso coctel con zumo de naranja y zumo de zanahoria con 3 gotas de amaretto, refrescante con Gelatto.</p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$1.25</span>
+                        <a href="#area-pago" class="btn-comprar">Comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <div class="producto-img p2">
+                    <div class="img-placeholder">NIEVE DEL TRÓPICO</div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="producto-titulo">NIEVE DEL TRÓPICO</h3>
+                    <p class="producto-desc">Delicioso y refrescante cóctel de coco y guanábana en trozos con 3 gotas de esencia de coco</p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$1.25</span>
+                        <a href="#area-pago" class="btn-comprar">Comprar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <div class="producto-img p3">
+                    <div class="img-placeholder">PISO SEIS</div>
+                </div>
+                <div class="producto-info">
+                    <h3 class="producto-titulo">PISO SEIS</h3>
+                    <p class="producto-desc">Delicioso y refrescante cóctel de piña y jugo de coco con 3 gotas de esencia de coco.</p>
+                    <div class="producto-footer">
+                        <span class="producto-precio">$1.25</span>
+                        <a href="#area-pago" class="btn-comprar">Comprar</a>
+                    </div>
+                </div>
+            </div>
+
+  
+            </div>
+
+        </div>
+
+        <h2 class="seccion-titulo">Finaliza tu Pedido</h2>
+        
+        <div class="seccion-pago" id="area-pago">
+            <div class="pago-contenedor">
+                <div>
+                    <span class="banco-badge">BANCO PICHINCHA</span>
+                    <h3>Paga de forma rápida y segura</h3>
+                    <p style="color: #78909c; margin-top: 0.5rem; font-size: 0.95rem;">Escanea el código QR desde tu App móvil o transfiere directamente a la cuenta indicada abajo.</p>
+                </div>
+
+                <div class="qr-box" title="Código QR de Prueba">
+                    <div class="qr-imagen"></div>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; font-weight: bold; color: var(--verde-principal);">QR DE PAGO DIRECTO</p>
+                </div>
+
+                <div class="datos-banco">
+                    <p><strong>Banco:</strong> Banco Pichincha</p>
+                    <p><strong>Tipo de Cuenta:</strong> Cuenta de Ahorros</p>
+                    <p><strong>Número de Cuenta:</strong> 2200XXXXXX</p>
+                    <p><strong>Beneficiario:</strong> Esperanding</p>
+                    <p><strong>RUC / C.I.:</strong> 17XXXXXXXX</p>
+                    <p><strong>Correo electrónico:</strong> pagos@comidapinos.com</p>
+                </div>
+                
+                <p style="font-size: 0.85rem; font-style: italic; color: #90a4ae;">Una vez realizado el depósito o transferencia, por favor envía el comprobante a nuestro WhatsApp para despachar tu menú de inmediato.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Cócteles deliciosos. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
